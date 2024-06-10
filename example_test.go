@@ -1,11 +1,13 @@
-package osmshortlink
+package osmshortlink_test
 
 import (
 	"fmt"
+
+	"github.com/stefanb/osmshortlink-go"
 )
 
 func ExampleCreate() {
-	shortLink, err := Create(46.05141, 14.50604, 17)
+	shortLink, err := osmshortlink.Create(46.05141, 14.50604, 17)
 	if err != nil {
 		panic(err)
 	}
@@ -14,7 +16,7 @@ func ExampleCreate() {
 }
 
 func ExampleEncode() {
-	shortLink, err := Encode(46.05141, 14.50604, 17)
+	shortLink, err := osmshortlink.Encode(46.05141, 14.50604, 17)
 	if err != nil {
 		panic(err)
 	}
@@ -23,7 +25,7 @@ func ExampleEncode() {
 }
 
 func ExampleDecode() {
-	latitude, longitude, zoom, err := Decode("0Ik3VNr_A-")
+	latitude, longitude, zoom, err := osmshortlink.Decode("0Ik3VNr_A-")
 	if err != nil {
 		panic(err)
 	}
