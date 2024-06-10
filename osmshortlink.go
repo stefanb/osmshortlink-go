@@ -61,6 +61,7 @@ func interleaveBits(x uint32, y uint32) uint64 {
 	return c
 }
 
+// Decode a short string into a location and zoom.
 func Decode(s string) (float64, float64, int, error) {
 	if len(s) < 1 {
 		return 0, 0, 0, fmt.Errorf("invalid osm short link string %q", s)
