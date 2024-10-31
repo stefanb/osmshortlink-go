@@ -35,10 +35,24 @@ Prints: [`https://osm.org/go/0Ik3VNr_A-?m`](https://osm.org/go/0Ik3VNr_A-?m)
 
 ### Command-line tool
 
-#### Run using Go
+#### Installation
+
+##### Download the pre-built binaries
+
+Download the pre-built binaries for your platform from [latest release](https://github.com/stefanb/osmshortlink-go/releases/latest).
+
+##### Install using Go
 
 ````bash
-$ go run github.com/stefanb/osmshortlink-go/cmd@main 46.05141 14.50604 17
+$ go install github.com/stefanb/osmshortlink-go/cmd/osmshortlink@latest
+$ osmshortlink 46.05141 14.50604 17
+https://osm.org/go/0Ik3VNr_A-?m
+````
+
+#### Run using Go without installing
+
+````bash
+$ go run github.com/stefanb/osmshortlink-go/cmd/osmshortlink@latest 46.05141 14.50604 17
 https://osm.org/go/0Ik3VNr_A-?m
 ````
 
@@ -56,3 +70,11 @@ For example:
 $ osmshortlink 46.05141 14.50604 17
 https://osm.org/go/0Ik3VNr_A-?m
 ```
+
+## Development
+
+Run: `go run ./cmd/osmshortlink/main.go 46.05141 14.50604 17`
+
+Testing: `go test -v -race -cover ./...`
+
+Fuzz testing: `go test -fuzz=. -fuzztime=1m`
