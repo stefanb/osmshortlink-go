@@ -31,13 +31,14 @@ jobs:
         uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
         with:
           go-version: "stable"
+          cache: false
 
       - name: Build and publish
         id: goreleaser
         uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v6.3.0
         with:
           distribution: goreleaser
-          version: latest
+          version: '~> v2'
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +51,7 @@ jobs:
           set -euo pipefail
 
           checksum_file=$(echo "$ARTIFACTS" | jq -r '.[] | select (.type=="Checksum") | .path')
-          echo "hashes=$(cat $checksum_file | base64 -w0)" >> "$GITHUB_OUTPUT"
+          echo "hashes=$(base64 -w0 "$checksum_file")" >> "$GITHUB_OUTPUT"
 
   binary-provenance:
     needs: [goreleaser]
@@ -66,7 +67,9 @@ jobs:
   verification-with-slsa-verifier:
     needs: [goreleaser, binary-provenance]
     runs-on: ubuntu-latest
-    permissions: read-all
+    permissions:
+      contents: read
+
     steps:
       - name: Install the verifier
         uses: slsa-framework/slsa-verifier/actions/installer@6657aada084353c65e5dde35394b1a010289fab0 # v2.7.0
@@ -82,13 +85,13 @@ jobs:
           gh -R "$GITHUB_REPOSITORY" release download "$GITHUB_REF_NAME" -p "$PROVENANCE"
       - name: Verify assets
         env:
-          CHECKSUMS: ${{ needs.goreleaser.outputs.hashes }}
+          GORELEASER_HASHES: ${{ needs.goreleaser.outputs.hashes }}
           PROVENANCE: "${{ needs.binary-provenance.outputs.provenance-name }}"
         run: |
           set -euo pipefail
-          checksums=$(echo "$CHECKSUMS" | base64 -d)
+          checksums=$(echo "$GORELEASER_HASHES" | base64 -d)
           while read -r line; do
-              fn=$(echo $line | cut -d ' ' -f2)
+              fn=$(echo "$line" | cut -d ' ' -f2)
               echo "Verifying $fn"
               slsa-verifier verify-artifact --provenance-path "$PROVENANCE" \
                                             --source-uri "github.com/$GITHUB_REPOSITORY" \
