@@ -31,6 +31,7 @@ jobs:
         uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
         with:
           go-version: "stable"
+          cache: false
 
       - name: Build and publish
         id: goreleaser
@@ -66,7 +67,9 @@ jobs:
   verification-with-slsa-verifier:
     needs: [goreleaser, binary-provenance]
     runs-on: ubuntu-latest
-    permissions: read-all
+    permissions:
+      contents: read
+
     steps:
       - name: Install the verifier
         uses: slsa-framework/slsa-verifier/actions/installer@6657aada084353c65e5dde35394b1a010289fab0 # v2.7.0
