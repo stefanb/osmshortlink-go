@@ -71,10 +71,10 @@ func Decode(s string) (float64, float64, int, error) {
 	var i int
 	var x int64 = 0
 	var y int64 = 0
-	var z int = -8
+	var z = -8
 	for i = 0; i < len(s); i++ {
-		var digit int = -1
-		var c byte = s[i]
+		var digit = -1
+		var c = s[i]
 		for j := 0; j < len(intToBase64); j++ {
 			if c == intToBase64[j] {
 				digit = j
@@ -98,8 +98,8 @@ func Decode(s string) (float64, float64, int, error) {
 		z += 3
 	}
 
-	var lon float64 = float64(x)*math.Pow(float64(2), float64(2-3*i))*90.0 - float64(180)
-	var lat float64 = float64(y)*math.Pow(float64(2), float64(2-3*i))*45.0 - float64(90)
+	var lon = float64(x)*math.Pow(float64(2), float64(2-3*i))*90.0 - float64(180)
+	var lat = float64(y)*math.Pow(float64(2), float64(2-3*i))*45.0 - float64(90)
 	// adjust z
 	if i < len(s) && s[i] == '-' {
 		z -= 2
