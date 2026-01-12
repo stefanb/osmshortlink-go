@@ -40,15 +40,15 @@ func Encode(latitude float32, longitude float32, zoom int) (string, error) {
 	lon := uint32((longitude + 180) / 360 * (1 << 32))
 
 	code := interleaveBits(lon, lat)
-	str := ""
+	var str strings.Builder
 	for i := 0; i < int(math.Ceil((float64(zoom+8))/3)); i++ {
-		str += string(intToBase64[int((code >> (58 - 6*i) & 0x3f))])
+		str.WriteString(string(intToBase64[int((code >> (58 - 6*i) & 0x3f))]))
 	}
 	for j := 0; j < (zoom+8)%3; j++ {
-		str += "-"
+		str.WriteString("-")
 	}
 
-	return str, nil
+	return str.String(), nil
 }
 
 // interleaveBits combines two 32-bit integers into a 64-bit integer
