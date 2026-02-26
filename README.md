@@ -35,7 +35,7 @@ Prints: [`https://osm.org/go/0Ik3VNr_A-?m`](https://osm.org/go/0Ik3VNr_A-?m)
 ### Command-line tool
 
 ```bash
-$ osmshortlink --help
+$ osmshortlink
 Usage: osmshortlink [latitude] [longitude] [zoom]
 ```
 
