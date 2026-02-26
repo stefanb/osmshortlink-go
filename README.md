@@ -5,9 +5,8 @@
 [![golangci-lint](https://github.com/stefanb/osmshortlink-go/actions/workflows/golangci-lint.yml/badge.svg)](https://github.com/stefanb/osmshortlink-go/actions/workflows/golangci-lint.yml)
 [![CodeQL](https://github.com/stefanb/osmshortlink-go/actions/workflows/codeql.yml/badge.svg)](https://github.com/stefanb/osmshortlink-go/actions/workflows/codeql.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/stefanb/osmshortlink-go)](https://goreportcard.com/report/github.com/stefanb/osmshortlink-go)
-[![codebeat badge](https://codebeat.co/badges/0dcfa9c5-a59b-46ed-b0a6-30e1bbda9a7e)](https://codebeat.co/projects/github-com-stefanb-osmshortlink-go-main)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/stefanb/osmshortlink-go/badge)](https://securityscorecards.dev/viewer/?uri=github.com/stefanb/osmshortlink-go)
-[![GitHub Release](https://img.shields.io/github/release/stefanb/osmshortlink-go.svg?style=flat)](https://github.com/stefanb/osmshortlink-go/releases/latest)
+[![GitHub Release](https://img.shields.io/github/v/release/stefanb/osmshortlink-go)](https://github.com/stefanb/osmshortlink-go/releases/latest)
 
 Specification: https://wiki.openstreetmap.org/wiki/Shortlink
 
@@ -35,6 +34,18 @@ Prints: [`https://osm.org/go/0Ik3VNr_A-?m`](https://osm.org/go/0Ik3VNr_A-?m)
 
 ### Command-line tool
 
+```bash
+$ osmshortlink
+Usage: osmshortlink [latitude] [longitude] [zoom]
+```
+
+For example:
+
+```bash
+$ osmshortlink 46.05141 14.50604 17
+https://osm.org/go/0Ik3VNr_A-?m
+```
+
 #### Installation
 
 ##### Download the pre-built binaries
@@ -55,21 +66,6 @@ https://osm.org/go/0Ik3VNr_A-?m
 $ go run github.com/stefanb/osmshortlink-go/cmd/osmshortlink@latest 46.05141 14.50604 17
 https://osm.org/go/0Ik3VNr_A-?m
 ````
-
-#### Pre-built binaries
-
-You can download pre-built binaries for various platforms from [latest release](https://github.com/stefanb/osmshortlink-go/releases/latest).
-
-```bash
-Usage: osmshortlink [latitude] [longitude] [zoom]
-```
-
-For example:
-
-```bash
-$ osmshortlink 46.05141 14.50604 17
-https://osm.org/go/0Ik3VNr_A-?m
-```
 
 ## Development
 
